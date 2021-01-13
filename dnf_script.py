@@ -4,7 +4,7 @@ class Main:
     def __init__(self,main_path):
         self.search_path = main_path         #the path we have to clone
                                              #from where we are running this file that dir path
-        self.saving_path = os.path.join(self.current_dir,"1_directory_structure")
+        self.saving_path = os.path.join(main_path,"1_directory_structure")
     
         if os.path.exists(self.saving_path):
             pass
@@ -26,19 +26,25 @@ class Main:
             #             except FileExistsError:
             #                 pass
             # else:
-            path = path.partition(self.search_path)[-1].lstrip('\\')
+            
             try:
-                print(path) 
-                os.mkdir(os.path.join(self.saving_path,path))
+                if  "dnf_script.py" in files:
+                    files.remove("dnf_script.py")
+                
+                path = path.partition(self.search_path)[-1].lstrip('\\')
+                if path:
+                    print(path)
+                    os.mkdir(os.path.join(self.saving_path,path))
                 
                 if(files):
+
                     files = [fn + '\n' for fn in files]
                     with open(os.path.join(self.saving_path,path,"1_directory_filelist.txt"),'w') as f:
                         f.writelines(files)
+
                         
             except FileExistsError:
-                print(path,files)
-                pass    
+               pass
             
             
           
