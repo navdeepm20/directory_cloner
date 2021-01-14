@@ -12,37 +12,18 @@ class Main:
             os.mkdir("1_directory_structure")
 
     def dir_blueprint_creater(self): 
-        for path,dirs,files in os.walk(self.search_path):
-            # if path == self.search_path:       #will check if the current iterative path and the search path is same. (basically the root of your search dir)
-            #     files = [fn + '\n' for fn in files]
-            #     if(files):
-            #         files = [fn + '\n' for fn in files]
-            #         with open(os.path.join(self.saving_path,"1_directory_filelist.txt"),'w') as f:
-            #             f.writelines(files)
-            #     for dir_name in dirs:
-            #         if "1_directory_structure" != dir_name:
-            #             try:
-            #                 os.mkdir(os.path.join(self.saving_path,dir_name))  
-            #             except FileExistsError:
-            #                 pass
-            # else:
-            
+        for path,dirs,files in os.walk(self.search_path): #os.walk will iterate 
             try:
-                if  "dnf_script.py" in files:
+                if  "dnf_script.py" in files and "1_directory_structure" in dirs: #just ignoring our original script and folder 
                     files.remove("dnf_script.py")
-                
+                    dirs.remove("1_directory_structure")
                 path = path.partition(self.search_path)[-1].lstrip('\\')
                 if path:
-                    print(path)
                     os.mkdir(os.path.join(self.saving_path,path))
-                
                 if(files):
-
                     files = [fn + '\n' for fn in files]
                     with open(os.path.join(self.saving_path,path,"1_directory_filelist.txt"),'w') as f:
-                        f.writelines(files)
-
-                        
+                        f.writelines(files)            
             except FileExistsError:
                pass
             
