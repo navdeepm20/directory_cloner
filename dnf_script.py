@@ -21,9 +21,12 @@ class Main:
                 if path:
                     os.mkdir(os.path.join(self.saving_path,path))
                 if(files):
-                    files = [fn + '\n' for fn in files]
+                    # files = [fn + '\n' for fn in files]
                     with open(os.path.join(self.saving_path,path,"1_directory_filelist.txt"),'w') as f:
-                        f.writelines(files)            
+                        for file in files:
+                            fi = str(file.encode("utf-8"))+"\n"
+                            f.write(fi.strip('b'))
+                                   
             except FileExistsError:
                pass
             
